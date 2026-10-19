@@ -27,15 +27,14 @@ def load_sweep(v):
 
 
 def fig_temperature_sweep():
-    """W/W_N vs T/Tc for the master set: corrected (a) + sum with pair channel."""
+    """W/W_N vs T/Tc for the master set: corrected (a), scattering-only quantitative result.
+    The pair channel is an OUTLOOK only (REPORT App. A2) and is not plotted here."""
     fig, ax = plt.subplots(1, 3, figsize=(13.5, 4.0), sharey=True)
     for i, v in enumerate((0.0, 0.4082, 0.8)):
         r = load_sweep(v)
         f = np.array(r["fracs"])
         a = np.array(r["ratios"]["a_signed"])
-        tot = np.array(r["ratios"]["total"])
-        ax[i].plot(f, a, color="tab:blue", lw=1.8, label="scattering only (corrected)")
-        ax[i].plot(f, tot, color="0.3", ls="--", lw=1.2, label="+ pair creation")
+        ax[i].plot(f, a, color="tab:blue", lw=1.8, label="scattering only (corrected, quantitative)")
         ax[i].axhline(1.0, color="0.5", lw=0.7)
         ax[i].axvline(1.0, color="0.4", ls=":", lw=0.8)
         ax[i].set_title(f"V_SO = {v:.4f},  Tc = {r['Tc']:.4f}")
@@ -181,9 +180,9 @@ def fig_sum_rule_thresholds():
     ax[1].semilogy(f, np.abs(tot - 1.0) + 1e-12, color="k", lw=1.4)
     ax[1].set_xlabel("T / Tc")
     ax[1].set_ylabel("$|(W+W_p)/W_N - 1|$")
-    ax[1].set_title("spectral weight per (E,E') shell is conserved; the RATIO to the\nband-reference normal state deviates from 1 above threshold (REPORT App. A)")
+    ax[1].set_title("OUTLOOK only: (W+W_p)/W_N against the band reference;\nnot an identity (different sheets, REPORT App. A2)")
     fig.suptitle("Pair creation is identically zero inside the paper's window $2\\Delta_{eff}>\\hbar\\omega$;"
-                 " above the true threshold it restores W/W_N = 1")
+                 " above the true threshold the pair channel is an OUTLOOK (no quantitative claim)")
     fig.tight_layout(rect=[0, 0, 1, 0.90])
     fig.savefig(f"{FIG}/sum_rule_and_thresholds.png", dpi=150)
     plt.close(fig)

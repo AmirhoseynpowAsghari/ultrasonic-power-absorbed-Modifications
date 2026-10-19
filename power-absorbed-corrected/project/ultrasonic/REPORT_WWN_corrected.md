@@ -72,7 +72,7 @@ variables against a `4·10⁶`-point integral in E with the explicit Jacobian: a
 ```
 
 For (a): `|ξξ′ − Δ̄Δ̄′| ≤ √(ξ²+Δ̄²)√(ξ′²+Δ̄′²) = E E′` (Cauchy–Schwarz), so **0 ≤ C_a ≤ 1 identically**,
-hence `0 ≤ C_a ≤ 1` for (a) pointwise.  This bounds the COHERENCE FACTOR only; it does NOT bound the ratio W/W_N, whose normal-state reference carries a different energy-conservation constraint (band energies) than W (quasiparticle energies): the repo's own total (S_sc+S_pair)/S_N = 1.51 above threshold is the counterexample (App. A2). (b) and (c) break even the pointwise-bound philosophy at Δ=0, where they return exactly 2R > 1 (§4, T4).
+hence `0 <= C_a <= 1` for (a) pointwise, and the SCATTERING-ONLY ratio satisfies W/W_N <= 1 in every variant (maxima 0.4000/0.5054/0.7611 at Tc-). Adding S_pair to the numerator while keeping the single normal-state denominator produces values >1 with no supporting identity (App. A2): withdrawn. (b) and (c) break the ratio bound already at Delta=0, where they return exactly 2R > 1 (§4, T4).
 
 ### 1.4 How the normal state is recovered — the crux of your question 7
 
@@ -333,24 +333,20 @@ Consequences, all visible in `results.csv`:
    extrapolation to Δ→0 and are reported precisely to make this structure explicit.
 
 
-## Appendix A2. Corrected sum rule; what is actually conserved (referee response)
+## Appendix A2. The pair channel: outlook only (withdrawal notice)
 
-The identity C_I + (1−C_I) = 1 holds per (E,E′) shell, so with a normal-state reference
-built in the SAME quasiparticle measure and the SAME constraint E′−E = ħω,
+The coherence factors satisfy C_I + C_pair = 1 per quasiparticle pair, so together the channels carry the total transition weight; because they occupy different sheets (E'-E = hw vs E+E' = hw) with different thermal weights, their sum is not bounded by and does not equal any single normal-state reference. This work therefore reports the scattering channel only; the pair channel is examined in the outlook without a quantitative claim.
 
-    W_N^QP = ∫∫ dE dE′ (E/ℓ)(E′/ℓ′) N(ε_E) N(ε_E′) δ(E′−E−ħω) [f(E)−f(E′)],
-    (W + W_p)/W_N^QP = 1   EXACTLY, for all Δ, ħω, T, V_SO.
-
-The committed/printed claim used instead the BAND reference W_N = ∫N(ε)N(ε+ħω)(f−f′)dε with
-μ_N; because E′−E=ħω does not map to ε′−ε=ħω at Δ≠0, (W+W_p)/W_N(band) ≠ 1: it exceeds 1
-above the true threshold 2E_min=ħω (measured maxima 1.349/1.405/1.514 at V_SO=0/0.4082/0.8;
-stable to ~1e-9 under nell refinement, so not a quadrature artefact) and returns to
-1.004–1.006 as Δ→0, where the two references coincide (T1).  What is conserved is the
-per-shell spectral weight, not the ratio against the band reference.  Consequences applied:
-README headline, COVER_NOTE, figure title of sum_rule_and_thresholds.png, PDF addendum
-pp.19–24 and PARAM_SCAN_PEAKS.md now state the corrected version; the >1 totals and the
-1.3–1.6 peaks are reported as finite-ω pair-breaking enhancement (ħω=0.7t is ~10³ times
-physical ultrasound frequencies, where 2E_min>ħω always and the ratio is ≤1, Levy).
+Measured with the formula as previously printed (matched quasiparticle reference),
+(W+W_p)/W_N^QP was 0.545 / 3.63 / 0.848 (V_SO = 0 / 0.4082 / 0.8 at T/Tc=0.5) and
+0.594 / 1.81 / 0.626 (T/Tc=0.9) - never 1 - and no implementation of that reference ever
+existed in code. Consequently: (i) the 1e-4-level "sum rule" and the W_N^QP identity claim are
+WITHDRAWN from README, COVER_NOTE, PDF addendum, figure titles and PARAM_SCAN_PEAKS;
+(ii) the "physical total" ratios >1 and the 1.3-1.6 peaks are WITHDRAWN as quantitative
+results (they arose from adding S_pair to the numerator only); (iii) inside the paper's
+own window 2E_min >= hw the pair channel is identically zero (41/52, 45/52, 48/52 temperature
+points exactly zero; first non-zero at T/Tc = 0.840 / 0.920 / 0.980), so the scattering-only
+result is COMPLETE there, not an approximation; (iv) The scattering channel alone returns R(hw,T_c) = 0.400 / 0.505 / 0.761 at T_c-; restoration of W/W_N -> 1 involves the pair-breaking channel, outside the scope of the quantitative result reported here.
 
 ## Appendix A3. Paper convention ↔ case ↔ correct factor (referee Part 4.1)
 

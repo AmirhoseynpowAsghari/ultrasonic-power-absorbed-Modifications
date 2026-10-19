@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import pymupdf
 
 plt.rcParams["mathtext.fontset"] = "dejavuserif"
-CACHE = "/home/user/paper_fix/eqcache"
+CACHE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "eqcache")
 os.makedirs(CACHE, exist_ok=True)
 
 

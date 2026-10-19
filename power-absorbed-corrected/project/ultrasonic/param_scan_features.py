@@ -11,11 +11,10 @@ peaking.  Genuine features can still appear in two physical channels, scanned he
        C_II = 1/2[1 + (xi xi' + Dbar Dbar')/(EE')]): at FIXED temperature the ratio is
        enhanced when 2*Delta(T) ~ hbar*omega -- a true resonance in any parameter that
        moves Delta(T) across hbar*omega/2 (U, Delta_t, V_SO all do).
-  (R2) PAIR-CREATION THRESHOLD: the physical total attenuation S_sc + S_pair acquires the
-       pair channel when 2*E_min(T) < hbar*omega (REPORT Appendix A); the square-root
-       onset can produce a kink/local maximum in the TOTAL as a function of parameters.
-       The scattering-only curve (the user's standing in-range convention) is plotted
-       alongside and the pair-open region is shaded, never merged into it silently.
+  (R2) PAIR-CREATION THRESHOLD (WITHDRAWN as quantitative claim, REPORT App. A2): the
+       combination S_sc + S_pair was examined as an OUTLOOK; its >1 features are withdrawn.
+       The scattering-only curve remains the quantitative result; the pair-open region is
+       shaded for orientation only.
 
 Ensembles per parameter set:
    frac = 0.5, 0.9      : a_signed (primary; reused from the coarse scan where possible)

@@ -15,7 +15,7 @@ over all parameter sets of the paper.
 |---|---|
 | Physics | η = +1 (ultrasound, Case I), scattering channel with signed coherence factor C_I = ½[1+(ξξ′−Δ̄Δ̄′)/(EE′)], energy conservation E′ = E+ħω on quasiparticle energies, explicit branch (σ) sums |
 | Master set | U = 95t, Δ_t = 4.5t, n = 1.885, ħω = 0.7t, V_SO = 0 / 0.4082 / 0.8 |
-| Headline result | W/W_N < 1 for all 0 < T < Tc; limits 0.4000 / 0.5054 / 0.7611; spectral-weight identity (W+W_p)/W_N^QP = 1 exactly with the matched quasiparticle reference; against the band-reference normal state the total EXCEEDS 1 above the true threshold 2E_min = ħω (finite-ω pair-breaking enhancement; REPORT App. A/A2) |
+| Headline result | W/W_N < 1 everywhere inside 2Delta_eff > hw (scattering-only quantitative claim); maxima at Tc-: 0.4000 / 0.5054 / 0.7611 at V_SO = 0 / 0.4082 / 0.8; pair channel = outlook only (no number, no identity) |
 | Defense package | `project/DEFENSE_referee_QA.md`: benchmarks B1-B6 vs accepted literature, 22 referee Q&A (Q1–Q18d), 12 oral-exam Q&A, honest limitations |
 | Deliverables | `project/paper_correction/results/arXiv_2607.02812_corrected.pdf` (English, original text verbatim + replaced figures + addendum), `.../corrections_fa.pdf` (Farsi, B Nazanin, typeset equations) |
 
@@ -25,7 +25,7 @@ over all parameter sets of the paper.
 .
 ├── README.md                          ← this file
 ├── LICENSE
-├── SOCfigures/                        ← curated physics-figure collection (36 PNGs + INDEX.md):
+├── SOCfigures/                        ← curated physics-figure collection (29 citable PNGs + INDEX.md; 6 pair-dependent/withdrawn panels in non_citable/):
 │                                        SOC effect, branch/coherence structure, benchmarks,
 │                                        peaks; reading order in SOCfigures/INDEX.md
 └── project/
@@ -63,8 +63,11 @@ over all parameter sets of the paper.
         ├── build_corrected_pdf.py  build_fa_pdf.py  eqrender.py  make_replaced_figs.py
         ├── COVER_NOTE.md
         ├── assets/BNazanin.ttf
-        ├── results/   arXiv_2607.02812_corrected.pdf · corrections_fa.pdf
-        └── figures/   the seven replaced paper figures
+        ├── vendor/    self-contained inputs: src.tar.gz (original source), figs/ (the seven
+        │              replaced paper figures, regenerable via make_replaced_figs.py),
+        │              eta1/ (addendum figures), eta1_code/ + results/ (stage-2 module & JSONs)
+        ├── figures/   copy of vendor/figs (the seven replaced paper figures)
+        └── results/   arXiv_2607.02812_corrected.pdf · corrections_fa.pdf
 ```
 
 ## Quick start
@@ -91,12 +94,12 @@ cd ../paper_correction && python build_corrected_pdf.py && python build_fa_pdf.p
 | `ultrasonic/figures/coherence_factors_per_branch.png` | **new** — C_I(E) per branch pair (σ,σ′); (b),(c) leave [0,1] as Δ→0 |
 | `ultrasonic/figures/caseII_mattis_bardeen_hebel_slichter.png` | **new** — Case-II benchmarks: Hebel-Slichter coherence peak vs Levy monotone Case-I; Mattis-Bardeen threshold at 2Δ |
 | `ultrasonic/figures/dual_space_k_vs_energy.png` | **new** — T7 dual-formulation benchmark: k-space lattice sum vs energy space vs Levy 2f(Δ), after Sardwal et al. arXiv:2608.19079 Fig. 3 |
-| `ultrasonic/figures/param_scan_U.png`, `param_scan_VSO.png`, `param_scan_Dt.png` | **new** — parameter study: primary channel monotone; sharp peaks (1.3–1.6) of the physical total (sc+pair) inside the pair-open wedge; report `project/PARAM_SCAN_PEAKS.md` |
+| `ultrasonic/figures/param_scan_U.png`, `param_scan_VSO.png`, `param_scan_Dt.png` | **new** — parameter study: scattering-only ratio monotone in V_SO and Delta_t; one scattering-only local max vs U at U*~20 (V_SO<=0.2); previously reported 1.3-1.6 'total' peaks WITHDRAWN (pair channel demoted to outlook); report `project/PARAM_SCAN_PEAKS.md` |
 | `ultrasonic/figures/param_scan_diagnostics.png` | **new** — dome T_c(x), pair threshold 2E_min=ħω, Case-II monotone |
 | `ultrasonic/figures/soc_effect_scattering.png`, `soc_mechanism.png` | **new** — spin-orbit effect in the scattering channel: ×1.7–1.9 enhancement at fixed T/T_c, ×39 suppression at fixed T, sign change at T/T_c≈0.22; mechanism decomposition (DOS splitting, T_c & Δ⁰/T_c, branch weights) — note `project/SOC_EFFECT_SCATTERING.md` |
 | `ultrasonic/figures/levy1963_swave_check.png` | **new** — s-wave reduction (Δˢ=0, V_SO=0, flat DOS, μ=0): ω→0 limit reproduces Levy 1963 Eq. (8), 2f(ε₀(T)), to 3e-6 |
 | `ultrasonic/figures/pair_creation_channel.png` | **new** — the pair-creation channel: integrand on the shell E+E'=ħω per branch pair, and W_p/W_N opening exactly at 2E_min = ħω |
-| `ultrasonic/figures/sum_rule_and_thresholds.png` | **new** — channels, the two thresholds (2Δ_eff vs 2E_min), spectral-weight identity vs band-reference total above threshold |
+| `ultrasonic/figures/sum_rule_and_thresholds.png` | **new** — channels and the two thresholds (2Delta_eff vs 2E_min); pair channel shown as OUTLOOK only, no quantitative claim |
 | `ultrasonic/figures/lattice_crosscheck.png` | **new** — energy-space pipeline vs brute-force lattice sum |
 | `ultrasonic/figures/branch_decomposition.png` | (σ,σ′) decomposition of the scattering sum |
 | `ultrasonic/figures/W_WN_limits.png` | Δ→0 and ω→0 limits vs analytic forms |
@@ -113,7 +116,7 @@ cd ../paper_correction && python build_corrected_pdf.py && python build_fa_pdf.p
 | T1 | Δ→0 closed form R(ħω,T); sum rule at Δ=0 | 3.1e-6; 100.0000 % |
 | T2 | ω→0 plateau = 2f(Δ) exactly = Levy 1963 Eq. (8) (s-wave reduction) | 2e-6 |
 | T3 | brute-force lattice sum, σ = sign(ε−ε*), per variant | (a) 1.0–1.3 %; (b) ≤0.7 %; (c) ≤0.7 %; (d) 1.5–45 % (variant (d) not used for results) |
-| T4 | 0 ≤ C_I ≤ 1 pointwise | ok |
+| T4 | structured-grid pointwise bound 0 ≤ C_I ≤ 1 for (a); ratio bound at Δ=0: (a),(d) → R ≤ 1, (b),(c) → 2R = 1.9002 > 1 (documented variant pathology) | ok |
 | T5 | s-wave reduction vs Levy 1963: W/W_N(ω→0) = 2f(ε₀(T)) | 3e-6 |
 | T6 | Case-II vertex: branch-summed kernels = Mattis-Bardeen 1958; Hebel-Slichter peak; 2Δ threshold | 8.7e-16 |
 | T7 | dual formulation, Sardwal et al. protocol (arXiv:2608.19079): (i) k-space lattice sum ↔ (ii) energy space ↔ (iii) Levy closed form; Nk convergence | (i)-(ii) 0.2–1.3 % (Nk-independent floor); s-wave triangle ≤1.4 % |
@@ -121,6 +124,6 @@ cd ../paper_correction && python build_corrected_pdf.py && python build_fa_pdf.p
 ## Errata to arXiv:2607.02812 (one line each; full text in the addenda)
 
 E1 coherence-factor combination & energy conservation · E2 all W/W_N values (flat 0.90–1.00) ·
-E3 limit at Tc (sum rule, not a jump to 1) · E4 threshold 2Δ_eff vs 2E_min ·
+E3 limit at Tc: scattering channel saturates at R(ħω,Tc); W/W_N→1 would require the pair channel (outlook only) · E4 threshold 2Δ_eff vs 2E_min ·
 E5 W_N/DOS normalisation, band-edge leak, abs() masking · E6 Δ_t typo (Group B), Group D
-auxiliary panels copied from Group A · E7 U=−75t on an unphysical strong-coupling root.
+auxiliary panels copied from Group A · E7 U=−75t on an unphysical strong-coupling root · E8 rigid master gap shape phi(T) for all V_SO (per-V_SO refit changes W/W_N by 1.3-3.4 %) · E9 U=−75 outputs removed from citable figures.

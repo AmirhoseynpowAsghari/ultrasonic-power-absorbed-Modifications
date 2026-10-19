@@ -7,17 +7,18 @@ make_paper_figs.py -- regenerated (corrected) figures for arXiv:2607.02812.
   auxiliary panels (mu(T), Delta(T)) are recomputed from the same stage-1 solution.
 * fig_scan_{U95,U125,Um75}.png : the three "W/W_N vs spin-orbit coupling" figures.
 """
-import json, sys
+import json, os, sys
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-sys.path.insert(0, "/home/user/wwn_eta1")
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, "vendor", "eta1_code"))
 import model
 
-G = json.load(open("/home/user/paper_fix/results/groups.json"))
-S = json.load(open("/home/user/paper_fix/results/scans.json"))
+G = json.load(open(os.path.join(HERE, "vendor", "results", "groups.json")))
+S = json.load(open(os.path.join(HERE, "vendor", "results", "scans.json")))
 
 COL = ["tab:blue", "tab:red", "tab:green", "tab:purple"]
 SCANCOL = ["#8B0000", "#E41A1C", "#FF7F00", "#E6AB02"]
@@ -96,7 +97,7 @@ for grp in "ABCD":
     ax[1, 2].legend(loc="lower left", fontsize=6.8)
     fig.suptitle(GROUP_TITLES[grp], y=0.985)
     fig.tight_layout(rect=[0, 0, 1, 0.975])
-    fig.savefig(f"/home/user/paper_fix/figs/fig_group_{grp}.png", dpi=100)
+    fig.savefig(os.path.join(HERE, "vendor", "figs", f"fig_group_{grp}.png"), dpi=100)
     plt.close(fig)
     print("group", grp, "done", flush=True)
 
@@ -118,6 +119,6 @@ for key, title in (("95", "U=95t"), ("125", "U=125t"), ("-75", "U=-75t")):
     a.legend(loc="lower right", title="fixed T/Tc")
     fig.tight_layout()
     tag = {"95": "U95", "125": "U125", "-75": "Um75"}[key]
-    fig.savefig(f"/home/user/paper_fix/figs/fig_scan_{tag}.png", dpi=100)
+    fig.savefig(os.path.join(HERE, "vendor", "figs", f"fig_scan_{tag}.png"), dpi=100)
     plt.close(fig)
     print("scan", key, "done", flush=True)

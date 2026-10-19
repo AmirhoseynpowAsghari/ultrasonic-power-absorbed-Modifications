@@ -1,9 +1,10 @@
 """
-export_results.py -- fan out results/production_raw.json to every consumer:
-  wwn_eta1/results.json + results.csv          (figures.py, REPORT)
-  paper_fix/results/groups.json + scans.json   (make_paper_figs.py)
-  ultrasonic/results/*                         (this repository)
-  ultrasonic_U/results/*                       (this repository)
+export_results.py -- fan out results/production_raw.json to every consumer, all paths
+relative to this repository:
+  ultrasonic/results/results.json + results.csv        (consumer schema of the wwn_eta1 pipeline)
+  ultrasonic/results/groups.json + scans.json          (inputs of paper_correction figure builders)
+  ultrasonic/results/*                                 (this repository)
+  ultrasonic_U/results/*                               (this repository)
 Run after run_production.py:  python export_results.py
 """
 import json
@@ -50,7 +51,7 @@ for v, rec in RAW["master"].items():
                  Wband=dos_for(p["VSO"]).Wband, meta=p, hbar_omega=OMEGA, n_target=N_TARGET,
                  gap_fit_p=GAP_FIT_P, gap_fit_q=GAP_FIT_Q,
                  rows=[row_out(r) for r in rec["rows"]])
-json.dump(wj, open("/home/user/wwn_eta1/results.json", "w"), indent=1)
+json.dump(wj, open(os.path.join(HERE, "results", "results.json"), "w"), indent=1)
 
 # ------------------------------------------------------------------ csv / W_WN_table.csv
 hdr = ["VSO", "T_over_Tc", "T", "Delta_eff", "E_min", "2E_min", "mu", "mu_N", "R_delta0_exact",
@@ -67,7 +68,7 @@ for v, rec in RAW["master"].items():
             r["d_std_ratio"], r["a_signed_pair_ratio"], r["a_signed_total_ratio"],
             pa[key(1, 1)], pa[key(-1, 1)], pa[key(1, -1)], pa[key(-1, -1)]]))
 csv_txt = "\n".join(lines) + "\n"
-open("/home/user/wwn_eta1/results.csv", "w").write(csv_txt)
+open(os.path.join(HERE, "results", "results.csv"), "w").write(csv_txt)
 open(f"{HERE}/results/W_WN_table.csv", "w").write(csv_txt)
 
 # ------------------------------------------------------------------ repository temp sweeps
@@ -104,7 +105,7 @@ for g in RAW["groups"]:
                            f"temp_sweep_U_{g['set']['U']:.2f}.json", "w"), indent=1)
 json.dump(gw, open(f"{HERE}/results/groups_WWN.json", "w"), indent=1)
 json.dump(gw, open(f"{HERE}/../ultrasonic_U/results/groups_WWN_AB.json", "w"), indent=1)
-json.dump(gw, open("/home/user/paper_fix/results/groups.json", "w"), indent=1)
+json.dump(gw, open(os.path.join(HERE, "results", "groups.json"), "w"), indent=1)
 
 # ------------------------------------------------------------------ scans
 vs, ps = {}, {}
@@ -119,5 +120,5 @@ for key, rec in RAW["scans"].items():
     ps[key] = dict(U=float(key), Delta_t=4.5, n=1.885, V_SO=rec["V_SO"], Tc=rec["Tc"],
                    Deff_0=rec["Deff_0"], D0_0=rec["D0_0"], DS_0=rec["DS_0"], ratio=ratio)
 json.dump(vs, open(f"{HERE}/results/vso_scan.json", "w"), indent=1)
-json.dump(ps, open("/home/user/paper_fix/results/scans.json", "w"), indent=1)
+json.dump(ps, open(os.path.join(HERE, "results", "scans.json"), "w"), indent=1)
 print("export done:", len(wj), "master sweeps,", len(gw), "groups,", len(vs), "scans")

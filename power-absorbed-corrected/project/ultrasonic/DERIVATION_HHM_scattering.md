@@ -247,9 +247,12 @@ pair states with vanishing total momentum).  It is *validated*, not assumed: in 
 Delta -> 0 limit this W_p plus the scattering W reproduces the normal-state golden rule
 W_N to 100.0000 % (test T1), and above the true threshold the sum rule
 
-    (W + W_p)/W_N = 1      (to 1e-4, all T)
+    C_I + C_pair = 1       (per quasiparticle pair)
 
-holds exactly — spectral weight merely migrates from the scattering channel into the
+holds exactly; the two channels live on different sheets (E'-E=hw vs E+E'=hw) with different
+thermal weights, so NO identity with a single normal-state reference follows (the previously
+printed (W+W_p)/W_N = 1 is withdrawn, REPORT App. A2).  At Delta->0 the measures coincide and
+(S_sc+S_pair)/S_N = 100.0000 % (T1).  Spectral weight merely migrates from the scattering channel into the
 creation channel as the gap opens.  (A strictly "vertical" E = E' = hbar w/2 prescription
 would violate this sum rule badly.)
 

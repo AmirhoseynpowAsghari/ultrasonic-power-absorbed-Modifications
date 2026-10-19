@@ -7,11 +7,19 @@ build_pdf.py -- assembles the corrected version of arXiv:2607.02812.
 * Errata & Addendum appended as pages 19-24.
 """
 import shutil
+import os
 import pymupdf
 
-SRC = "/home/user/paper_src/src.tar.gz"
-OUT = "/home/user/paper_fix/arXiv_2607.02812_corrected.pdf"
-FIG = "/home/user/paper_fix/figs/"
+HERE = os.path.dirname(os.path.abspath(__file__))
+VEND = os.path.join(HERE, "vendor")
+SRC = os.path.join(VEND, "src.tar.gz")            # original LaTeX-built source (vendored input)
+OUT = os.path.join(HERE, "results", "arXiv_2607.02812_corrected.pdf")
+FIG = os.path.join(VEND, "figs") + os.sep          # recomputed replacement figures (vendored)
+ETA1 = os.path.join(VEND, "eta1") + os.sep         # master-set addendum figures (vendored)
+os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
+for _need in (SRC, os.path.join(VEND, "figs"), os.path.join(VEND, "eta1")):
+    if not os.path.exists(_need):
+        raise SystemExit(f"missing vendored input: {_need}")
 TTF = "/usr/local/lib/python3.13/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf"
 
 doc = pymupdf.open(SRC)
@@ -102,7 +110,7 @@ put(p, TITLE + "\nSummary of corrections\n"
     "E3  Limit at Tc.  W/W_N does not tend to 1 at Tc\u207b in this model: it saturates at R(\u0127\u03c9,Tc), the "
     "band-structure value of the \u0394=0 ratio, because the helicity coherence factor is a normal-state "
     "(band) property, not a pairing property.  Adding the pair-breaking channel (E+E\u2032=\u0127\u03c9, occupation "
-    "1\u2212f(E)\u2212f(E\u2032), coherence factor 1\u2212C_I) restores the spectral-weight identity (W+W_p)/W_N^QP = 1 exactly against the matched quasiparticle reference; against the band-reference normal state the total exceeds 1 above 2E_min = hbar*omega (finite-omega pair-breaking enhancement; REPORT App. A2).\n"
+    "1\u2212f(E)\u2212f(E\u2032), coherence factor 1\u2212C_I) is examined as an OUTLOOK only: the scattering channel alone returns R(hbar*omega,T_c) at T_c-; restoration of W/W_N -> 1 would involve the pair-breaking channel, outside the quantitative result (REPORT App. A2).\n"
     "E4  Pair-breaking threshold.  The validity cut used in the paper, 2\u0394_eff(T) > \u0127\u03c9, is not the "
     "pair-breaking threshold.  The true kinematic threshold is 2 E_min(T) = \u0127\u03c9 with "
     "E_min = |\u0394\u00b0 \u2212 b\u03bc|/\u221a(1+b\u00b2), b = \u0394\u02e2/4t, the minimum of the quasiparticle energy.  Inside the domain "
@@ -119,7 +127,12 @@ put(p, TITLE + "\nSummary of corrections\n"
     "E7  U=\u221275t scan.  For U=\u221275t the stage-1 maximum-gap root (the paper solver's own selection rule) "
     "is a strong-coupling solution with \u03bc \u2248 35t, far outside the band (Tc \u2248 12.7t, \u0394_eff(0) \u2248 17.8t).  The "
     "corrected attenuation of that root is plotted as stated, but the set lies outside the physical "
-    "window of the tight-binding model and should not carry physical claims.",
+    "window of the tight-binding model and should not carry physical claims.\n"
+    "E8  Gap shape.  Stage 2 uses the rigid master gap shape phi(T) = (1-(T/Tc)^3.434)^0.553 for all "
+    "V_SO; a per-V_SO refit (3.674/0.556 at V_SO = 0) changes the reported W/W_N by 1.3-3.4 % "
+    "(measured, results/gap_refit_check.json).\n"
+    "E9  Citability.  U=-75t outputs are excluded from the citable presentation figures "
+    "(SOCfigures/non_citable/) and retained only as a historical record.",
     size=8.6)
 
 p = new_page()
@@ -141,7 +154,7 @@ put(p, "1  Corrected formalism (derivation before numbers)\n"
     "Pair-breaking channel (reported separately; zero inside the window 2\u0394_eff > \u0127\u03c9):\n"
     "   W_p = \u03a3_{\u03c3,\u03c3\u2032} \u222b dE \u03bd_\u03c3(E) \u03bd_\u03c3\u2032(\u0127\u03c9\u2212E) (1\u2212C_I) [1 \u2212 f(E) \u2212 f(\u0127\u03c9\u2212E)],  nonzero only for \u0127\u03c9 > 2E_min.\n"
     "Elementary checks: 0 \u2264 C_I \u2264 1 pointwise; at \u0394=0, C_I \u2192 branch projector (1 if \u03c3=\u03c3\u2032 else 0); "
-    "M_scat\u00b2 + M_pair\u00b2 = 1 to 1e-16; at \u0394=0 the two normal-state references coincide and (W+W_p)/W_N = 1 to 1e-4; at finite \u0394 the identity holds only against the matched quasiparticle reference (REPORT App. A2).\n\n"
+    "M_scat\u00b2 + M_pair\u00b2 = 1 to 1e-16; at \u0394=0 the two-channel sum equals S_N to 1e-6 (a \u0394\u21920 limit where the sheets coincide); NO finite-\u0394 identity is claimed (REPORT App. A2).\n\n"
     "2  Corrected results\n"
     "Table 1 - groups A-D (scattering channel, \u03b7=+1, signed \u03be\u03be\u2032, \u0127\u03c9=0.7t):\n"
     "   set                 Tc/t     \u0394_eff(0)/t   min W/W_N   lim T\u2192Tc\u207b\n"
@@ -221,14 +234,16 @@ for fn, cap in (("fig_WWN_vs_T.png",
                 ("fig_limits.png",
                  "Figure A3.  Limits of the corrected ratio: \u0394\u21920 (T\u2192Tc\u207b) saturation at R(\u0127\u03c9,Tc) and the "
                  "\u03c9\u21920 plateau 0.647\u00b72f(\u0394); adding the pair-breaking channel above the true threshold "
-                 "2E_min = \u0127\u03c9 the spectral-weight identity holds against the matched reference; the band-reference total exceeds 1 there (App. A2).")):
+                 "2E_min = \u0127\u03c9 the pair channel is an outlook only; the quantitative result is scattering-only (App. A2).")):
     p = new_page()
-    pix = pymupdf.Pixmap("/home/user/wwn_eta1/" + fn)
+    pix = pymupdf.Pixmap(ETA1 + fn)
     ar = pix.width / pix.height
     w = 512.0
     h = w / ar
-    p.insert_image(pymupdf.Rect(50, 80, 50 + w, 80 + h), filename="/home/user/wwn_eta1/" + fn)
+    p.insert_image(pymupdf.Rect(50, 80, 50 + w, 80 + h), filename=ETA1 + fn)
     put(p, cap, rect=(62, 90 + h, 550, 740), size=9.0)
 
 doc.save(OUT, garbage=4, deflate=True)
+import shutil
+shutil.copyfile(OUT, os.path.join(HERE, "arXiv_2607.02812_corrected.pdf"))
 print("saved", OUT, "pages:", doc.page_count)

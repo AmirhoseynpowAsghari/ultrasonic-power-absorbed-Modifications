@@ -26,8 +26,8 @@ scattering formalism shape the ultrasonic attenuation ratio W/W_N of the HHM mod
 | `11_coherence_factors_per_branch.png` | C_I, C_pair, C_II per branch vs E — the sign structure η=+1 vs η=−1 | `ultrasonic/plotting_ua.py` |
 | `12_coherence_variants_comparison.png` | W/W_N for the four coherence prescriptions (a) signed, (b) \|ξ\|\|ξ′\|, (c) paper's, (d) textbook — why (a) is the physical one | `ultrasonic/plotting_ua.py` |
 | `13_branch_decomposition_of_W.png` | decomposition of S_sc into (σ,σ′) channel contributions vs T | `ultrasonic/plotting_ua.py` |
-| `14_pair_creation_channel_threshold.png` | the pair-creation channel S_pair and its true threshold 2E_min = ħω (REPORT Appendix A) | `ultrasonic/plotting_ua.py` |
-| `15_sum_rule_and_thresholds.png` | (W+W_p)/W_N = 1 at Δ→0 and the threshold structure (user cut 2Δ vs true 2E_min) | `ultrasonic/plotting_ua.py` |
+| ~~`14_pair_creation_channel_threshold.png`~~ → **non_citable/** | pair channel = OUTLOOK only (no quantitative claim; REPORT App. A2) | `ultrasonic/plotting_ua.py` |
+| ~~`15_sum_rule_and_thresholds.png`~~ → **non_citable/** | the printed (W+W_p)/W_N = 1 identity is WITHDRAWN; panel survives as outlook with corrected titles | `ultrasonic/plotting_ua.py` |
 | `16_analytic_limits.png` | analytic limits (ω→0 plateau 2f(Δ), Δ→0, T→T_c) against the numerics | `ultrasonic/plotting_ua.py` |
 
 ## C. Benchmarks (independent literature)
@@ -43,8 +43,8 @@ scattering formalism shape the ultrasonic attenuation ratio W/W_N of the HHM mod
 
 | file | physics shown | regenerate with |
 |---|---|---|
-| `21..23_peaks_vs_{U,VSO,Dt}.png` | primary channel monotone; sharp peaks (1.3–1.6) of the physical total (sc+pair) inside the pair-open wedge; pair-open shading; peak stars with (x*, height) | `ultrasonic/make_param_figures.py` |
-| `24_peaks_diagnostics_dome_threshold.png` | T_c(x) dome, pair threshold 2E_min = ħω vs x, Case-II monotone, primary at T/T_c=0.9 | `ultrasonic/make_param_figures.py` |
+| ~~`21..23_peaks_vs_{U,VSO,Dt}.png`~~ → **non_citable/** | the 1.3–1.6 'physical total' peaks are WITHDRAWN (pair channel demoted; PARAM_SCAN_PEAKS §2, §8); scattering-only maxima 0.400/0.505/0.761 — use `33_WWN_vs_U_families_VSO.png` for the surviving U*≈20 feature | `ultrasonic/make_param_figures.py` |
+| ~~`24_peaks_diagnostics_dome_threshold.png`~~ → **non_citable/** | peak diagnostics of the withdrawn combination (historical record only) | `ultrasonic/make_param_figures.py` |
 | `25_Dt_scan_groupC.png` | Group-C Δ_t scan of the paper (regenerated) | `ultrasonic/plotting_ua.py` |
 | `26..28_U_*.png` | U-family sweeps: production U scan, attractive-branch sweep, U-temperature composite | `ultrasonic_U/` plotting |
 | `29_temperature_sweep_master.png` | master W/W_N vs T/T_c for the three V_SO of the paper (the baseline curves) | `ultrasonic/plotting_ua.py` |
@@ -52,8 +52,15 @@ scattering formalism shape the ultrasonic attenuation ratio W/W_N of the HHM mod
 
 ## Reading order (suggested for a first pass)
 
-00 → 10 → 11 → 12 (formalism) → 29 → 01 → 02 (SOC) → 14 → 15 (channels & sum rule) →
-17 → 18 → 19 (benchmarks) → 21–24 (parameter study & peaks).
+00 → 10 → 11 → 12 (formalism) → 29 → 01 → 02 (SOC) →
+17 → 18 → 19 (benchmarks) → 31 → 32 → 33 → 34 (parameter families, scattering-only).
+
+## non_citable/ (moved here under the Route-A withdrawal)
+
+`14`, `15`, `21`–`24`: panels whose titles/claims depended on the withdrawn
+(W+W_p)/W_N = 1 identity or on the withdrawn 1.3–1.6 'physical total' peaks.  Kept as a
+historical record; NOT citable.  See `project/ultrasonic/REPORT_WWN_corrected.md` App. A2,
+`project/PARAM_SCAN_PEAKS.md` §2/§8 and `REFEREE_RESPONSE.md` §6.
 
 Companion texts: `project/SOC_EFFECT_SCATTERING.md`, `project/PARAM_SCAN_PEAKS.md`,
 `project/LEVY_REGIME_ANALYSIS.md`, `project/ultrasonic/REPORT_WWN_corrected.md`,

@@ -14,12 +14,10 @@ python param_scan_features.py && python make_param_figures.py` (~15 min, 2 cores
   project): NO peaks.**  Of 1320 curves (8 channels × 3 scans × families), 1292 are
   strictly monotone; 15 fail strict monotonicity only inside numerically flat tails
   (|values| < 10⁻⁶, e.g. the exponentially suppressed side); 13 prominent local maxima
-  exist **only in the physical total attenuation** (scattering + pair creation).
-* **The physical total W/W_N = (S_sc + S_pair)/S_N at fixed temperature shows sharp,
-  robust peaks of height 1.32–1.58** — above the normal-state value 1 — located in the
-  wedge where the superconducting dome is open (T_c ≳ T) *and* the pair-creation channel
-  is open (2 E_min < ħω).  Positions are stable under 13- and 25-point refinement
-  (shifts ≤ 0.06 in Δ_t, ≤ 0.012 in V_SO; ≤ 1.3 in U where the coarse step is 7.5).
+  existed only in the now-withdrawn (S_sc+S_pair)/S_N combination.
+* **WITHDRAWN (pair-dependent):** the previously reported sharp peaks of height 1.32-1.58
+  in (S_sc+S_pair)/S_N arose from adding the pair channel to the numerator only; they are
+  not quantitative results of this work (REPORT App. A2).
 * **Case-II channel (η=−1 kernel): no resonance peaks** in the scanned ranges at fixed T
   (monotone); the Hebel–Slichter resonance of this model lives in the T-direction at
   fixed ω (already documented, T6), not in these parameter directions.
@@ -39,48 +37,17 @@ becomes normal and the ratio saturates at the normal golden-rule value.  Hence e
 primary-channel curve is monotone or sigmoidal (dome crossing), see
 `figures/param_scan_diagnostics.png`(a,b,d) and panels (a),(b) of the three scan figures.
 
-## 2. The peaks: physical total (scattering + pair creation) at fixed T
+## 2. Peak statement (corrected)
 
-When 2 E_min(T) < ħω the physical attenuation acquires the pair-creation channel
-(S_pair, weight 1−f−f′, coherence 1−C_I; REPORT Appendix A; the PP channel of Sardwal
-et al., arXiv:2608.19079, Eqs. A6–A9).  Inside the pair-open window the constructive
-pair coherence factor makes the total **exceed** the normal-state absorption (W/W_N > 1,
-a coherence-enhancement overshoot), while
-
-* on the small-gap side the dome collapses and the Δ→0 sum rule forces the total → 1
-  (the exact plateaux at 1.00 in the figures), and
-* on the large-gap side the threshold 2 E_min = ħω closes the pair channel and the
-  scattering part is exponentially suppressed → total → 0.
-
-A sharp maximum therefore sits just inside the pair-open wedge.  Refined peaks:
-
-| scan | fixed (·,·) | T/t | x* | W/W_N | parab. vertex | dense re-scan | shift | dev nell×2 | dev k-space |
-|---|---|---|---|---|---|---|---|---|---|
-| U | V_SO=0, Δ_t=4.5 | 0.10 | 105.0 | 1.561 | 105.60 | 104.58 | 1.02 | 1e-10 | 2.7e-3 |
-| U | V_SO=0, Δ_t=4.5 | 0.20 | 98.8 | 1.389 | 99.33 | 98.13 | 1.21 | 1e-08 | 2.4e-3 |
-| U | V_SO=0.4082, Δ_t=4.5 | 0.10 | 116.3 | 1.492 | 116.85 | 115.52 | 1.33 | 2e-09 | 1.3e-2 |
-| U | V_SO=0.4082, Δ_t=4.5 | 0.20 | 108.8 | 1.363 | 109.34 | 108.65 | 0.69 | 1e-07 | 3.8e-2 |
-| V_SO | U=125, Δ_t=4.5 | 0.10 | 0.552 | 1.399 | 0.544 | 0.556 | 0.012 | 6e-09 | 1.8e-2 |
-| V_SO | U=125, Δ_t=4.5 | 0.20 | 0.567 | 1.576 | 0.573 | 0.569 | 0.003 | 2e-05 | 1.5e-1 |
-| Δ_t | U=95, V_SO=0 | 0.10 | 4.250 | 1.560 | 4.230 | 4.260 | 0.030 | 1e-10 | 2.3e-3 |
-| Δ_t | U=95, V_SO=0 | 0.20 | 4.417 | 1.405 | 4.398 | 4.420 | 0.023 | 2e-08 | 9.3e-3 |
-| Δ_t | U=95, V_SO=0.4082 | 0.10 | 4.000 | 1.480 | 3.981 | 4.028 | 0.047 | 2e-09 | 1.3e-2 |
-| Δ_t | U=125, V_SO=0 | 0.10 | 4.958 | 1.552 | 4.939 | 4.976 | 0.037 | 1e-10 | 2.7e-3 |
-| Δ_t | U=125, V_SO=0 | 0.20 | 5.125 | 1.377 | 5.106 | 5.149 | 0.043 | 2e-08 | 3.0e-3 |
-| Δ_t | U=125, V_SO=0.4082 | 0.10 | 4.667 | 1.467 | 4.647 | 4.705 | 0.058 | 2e-09 | 1.3e-2 |
-| Δ_t | U=125, V_SO=0.4082 | 0.20 | 4.833 | 1.323 | 4.814 | 4.868 | 0.054 | 1e-07 | 1.4e-2 |
-
-**Movement of the peak (the systematics the professor asked for):**
-
-* **U\*** grows with V_SO (105 → 116 at T=0.1t) and decreases with T (105 → 99 at
-  V_SO=0): stronger Rashba splitting pushes the dome-edge (and the threshold crossing)
-  to stronger coupling; higher T widens the pair-open wedge towards weaker coupling.
-* **V_SO\*** at U=125: 0.544 (T=0.1t), 0.573 (T=0.2t) — the wedge enters at mid-Rashba.
-* **Δ_t\*** grows with U (4.23 → 4.94 at V_SO=0, T=0.1t), decreases with V_SO
-  (4.23 → 3.98 at U=95; 4.94 → 4.65 at U=125), and grows with T (+0.17…+0.20):
-  Δ_t controls b = Δˢ/4t, hence both E_min and the dome edge.
-* **Heights** 1.32–1.58, largest at T=0.1t (sharper wedge); the overshoot above 1 is the
-  constructive pair coherence factor, absent in the normal state.
+The primary (scattering-only) channel shows no peak in the temperature direction: 1292 of
+1320 scanned curves are strictly monotone (the rest fail monotonicity only in numerically
+flat tails), and its maxima over T/T_c are 0.400 / 0.505 / 0.761 at V_SO = 0 / 0.4082 / 0.8.
+The 1.3-1.6 features previously reported arose from adding S_pair to the numerator only;
+they are withdrawn.  One genuine scattering-only non-monotonicity survives and is retained:
+a local maximum vs U at U* ~ 19-21 for V_SO <= 0.2 (heights 0.058/0.311/0.597/0.873/0.999 at
+T/T_c = 0.3/0.5/0.7/0.9/0.999), from the competition of the falling Delta0/Tc with the
+falling normal-state anchor R(hw, (T/Tc)Tc(U)) - see §7 addendum and
+`figures/WWN_vs_U_families_VSO.png`.
 
 ## 3. Artifact checks
 
@@ -151,17 +118,9 @@ Flagged mean-field roots in these scans: U=55 at V_SO=0.4 and 0.6 (Δ⁰ ≪ Δ)
 V_SO=0 (dome edge, T_c=0.011 t).
 
 
-## 8. Pair-channel decision (referee Part 2) — option (a), with the corrected reference
+## 8. Pair-channel decision (final): outlook only
 
-The pair-creation channel IS part of the ultrasonic W: a phonon of energy ħω > 2E_min can
-decay into two quasiparticles, and that decay absorbs sound energy (Sardwal et al.,
-arXiv:2608.19079, Eqs. A6–A9, same η=+1 weight 1−f_m−f_n).  Therefore totals above 1 are not
-a bookkeeping error; they are the coherence-enhanced pair-breaking (C_pair = 1 at the gap
-edge, BCS singularities) measured against a normal-state reference that imposes BAND-energy
-conservation while W imposes QUASIPARTICLE-energy conservation (Appendix A2 of the REPORT).
-With the matched reference W_N^QP the identity (W+W_p)/W_N^QP = 1 holds exactly and the
-"peaks" are deviations of the band reference, i.e. genuine finite-ω physics of the model at
-ħω = 0.7t (~10³× physical ultrasound, where 2E_min > ħω everywhere and W/W_N ≤ 1, Levy).
-Files changed accordingly: README headline + gallery, COVER_NOTE.md, REPORT App. A2,
-plotting_ua.py figure title (+ regenerated sum_rule_and_thresholds.png), this file §0/§2
-wording ("physical total" always qualified as finite-ω), PDF addendum pp.19–24.
+The coherence factors satisfy C_I + C_pair = 1 per quasiparticle pair, so together the channels carry the total transition weight; because they occupy different sheets (E'-E = hw vs E+E' = hw) with different thermal weights, their sum is not bounded by and does not equal any single normal-state reference. This work therefore reports the scattering channel only; the pair channel is examined in the outlook without a quantitative claim.  All files that carried the withdrawn claims are listed in REFEREE_RESPONSE.md §6
+(with per-file before -> after).  Figures SOCfigures/14, 15, 21-24 were moved to
+SOCfigures/non_citable/; the peak panels survive there as historical record only.
+

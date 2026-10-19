@@ -50,7 +50,7 @@ The regenerated paper figures `W_WN_vs_VSO*.png` (U = 95, 125, −75 at fixed T/
 Group-D panels show the same monotone enhancement; this note adds the fixed-T ensemble,
 the relative-enhancement sign change, and the mechanism decomposition. The parameter
 study (`PARAM_SCAN_PEAKS.md`) confirms the V_SO dependence of the peak positions of the
-physical total (V_SO* ≈ 0.55 at U=125; U* shifts 105→116 with V_SO).
+withdrawn pair-dependent peak study; the scattering-only SOC figures (01, 02, 32, 34) are unaffected.
 
 
 ## 4. What is EXPLICIT and what is INDIRECT in the SOC effect (vertex caveat)

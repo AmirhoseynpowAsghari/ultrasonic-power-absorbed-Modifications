@@ -84,7 +84,9 @@ scattering-only result (2) is complete there. Above the true threshold the sum r
 
     (W + W_p)/W_N = 1                                                    (5)
 
-holds exactly (verified to 1e-4), i.e. W/W_N → 1 at Tc⁻ only once both channels are kept;
+is a Delta->0 limit only (T1): the two channels live on different sheets (E'-E=hw vs
+E+E'=hw) with different thermal weights, so no finite-Delta identity with a single
+normal-state reference exists (withdrawn, REPORT App. A2).  The scattering channel alone returns R(hw,T_c) = 0.400 / 0.505 / 0.761 at T_c-; restoration of W/W_N -> 1 involves the pair-breaking channel, outside the scope of the quantitative result reported here.
 the scattering channel alone saturates at the band-structure value R(ħω,Tc) < 1,
 
     R(ħω,T) = (2/ħω) ∫₀^∞ [f(E) − f(E+ħω)] dE      (Δ→0 closed form).    (6)
@@ -103,8 +105,8 @@ the scattering channel alone saturates at the band-structure value R(ħω,Tc) < 
 
 ## 6  Validation suite (`ultrasonic/validate_ua.py`)
 
-T0 quadrature vs adaptive: 2.1e-4. T1 Δ→0 closed form (6): 3.1e-6; sum rule (5) at Δ=0:
-100.0000 %. T2/T5 ω→0 plateau = 2f(Δ) = Levy 1963 Eq. (8) to 2e-6. T3 independent brute-force lattice
+T0 quadrature vs adaptive (both Jacobians): <=3.9e-4. T1 Δ→0 closed form (6): 3.1e-6; two-channel sum = S_N at Δ=0:
+100.0000 % (a Δ→0 limit, not a finite-Δ identity). T2/T5 ω→0 plateau = 2f(Δ) = Levy 1963 Eq. (8) to 2e-6. T3 independent brute-force lattice
 sum over (k,helicity)×(k′,helicity) with σ = sign(ε−ε*): 0.4–1.6 % for 0.5 ≤ T/Tc ≤ 0.999.
 T4 0 ≤ C_I ≤ 1 pointwise. T5 s-wave reduction reproduces Levy 1963 Eq. (8),
 alpha_s/alpha_n = 2f(eps_0(T)), to 3e-6. T6 with the Case-II vertex (eta=-1) the same code
@@ -124,7 +126,7 @@ in the s-wave omega->0 limit the k-space/energy-space/Levy triangle closes at <=
 
 E1 coherence-factor combination and energy conservation (eq. (1) above);
 E2 all printed/plotted W/W_N (flat 0.90–1.00) wrong;
-E3 limit at Tc (sum rule (5) vs the paper's jump to 1);
+E3 limit at Tc (scattering channel saturates at R(ħω,Tc); the paper's jump to 1 would need the pair channel — outlook only);
 E4 threshold 2Δ_eff vs 2E_min;
 E5 W_N/DOS normalisation, band-edge leak, abs() masking;
 E6 Group B "Δ_t = 4" typo (4.5), Group D auxiliary panels copied from Group A;

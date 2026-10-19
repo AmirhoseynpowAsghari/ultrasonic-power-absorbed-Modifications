@@ -19,7 +19,7 @@ ago.* Five such benchmarks are implemented as permanent tests.
 | B2 | **Mattis & Bardeen 1958**, Phys. Rev. 109, 1553: the σ₁ kernels (EE′±Δ²)/(ℓℓ′) | branch-summed Case-II integrand of our pipeline equals the MB kernels (factor 2 = their particle-hole symmetrisation, cancels in ratios); MB threshold: absorption = 0 for ħω<2Δ, turns on above | 8.7·10⁻¹⁶ (machine precision), 2000 random states | `python case2_checks.py` |
 | B3 | **Hebel & Slichter 1959**, Phys. Rev. 113, 1504: coherence peak of Case-II rates below Tc | same code, η=−1 vertex: ω→0 rate ratio peaks at ≈2.7 just below Tc and returns to 1 at Tc; η=+1 (our ultrasound Case I) stays monotone < 1 (Levy) | qualitative signature, exact shape | `python case2_checks.py` (figure `caseII_mattis_bardeen_hebel_slichter.png`) |
 | B4 | **Hutchinson–Hirsch–Marsiglio 2018**, arXiv:1801.08988 (the model itself): kernel Eq. (20), gap linearity Eqs. (36–37), band minimum −4t√(1+V_SO²/2t²) | our stage-1 solver (same kernel) reproduces every printed Tc, Δ⁰, Δˢ of the paper's parameter sets to 4 decimals; band edge of `kgrid_ua` equals their exact minimum | 10⁻⁴ | `python main_tc.py groups` |
-| B5 | BCS textbook limits: Δ→0 branch projectors, Cauchy–Schwarz 0≤C_I≤1, sum rule (W+W_p)/W_N=1 | tests T1, T4, and the Δ→0 sum rule | 3·10⁻⁶ / 100.0000 % | `python validate_ua.py` |
+| B5 | BCS textbook limits: Δ→0 branch projectors, Cauchy–Schwarz 0≤C_I≤1; scattering-only ratio ≤1 in every variant; C_I+C_pair=1 per pair (different sheets: no normal-state identity) | tests T1 (Δ→0 limit), T4 (ratio bound) | 3·10⁻⁶ / 100.0000 % at Δ=0 | `python validate_ua.py` |
 | B6 | internal independence: brute-force (k,helicity)×(k′,helicity) lattice sum vs energy-space pipeline | T3, T7a | 0.4–1.6 % for 0.5≤T/Tc≤0.999; T7a: 0.2–1.3 %, Nk-independent floor | `python validate_ua.py`, `python dualspace_check.py` |
 | B7 | independent 2026 dual-formulation precedent + confirmation of the signed coherence factor: Sardwal–Kreisel–Mukherjee, arXiv:2608.19079 — real-space BdG ↔ k-space ↔ Walker–Smith–Samokhin analytic (PRB 65, 014517); their coherence factor (u\*u−v\*v)² = ½[1+(ξξ′−ΔΔ′)/(EE′)] (Eqs. 16/A3) = our signed C_I; their PP-channel weight (1−f_m−f_n) = our S_pair, "negligible for homogeneous superconductors" | T7 triangle | k↔E ≤1.3 %; triangle ≤1.4 %; analytic leg = Levy 3e-6 (T5) | `python dualspace_check.py` |
 
@@ -66,10 +66,8 @@ A. Two statements. (i) W/W_N<1 follows from 0≤C_I≤1 pointwise (Cauchy–Schw
 DOS restructuring. (ii) The limit at Tc⁻ of the *scattering channel alone* is the Δ→0 golden
 rule with the branch projectors still active: it equals R(ħω,Tc)=(2/ħω)∫₀^∞[f−f′]dE weighted
 by the band DOS — 0.4987/0.5935/0.7426 (flat-DOS values) — not 1. The full absorption
-includes pair creation; above the true threshold 2E_min=ħω the sum rule
-(W+W_p)/W_N=1 holds exactly (1e-4), so the *total* ratio does tend to 1 at Tc⁻. The
-manuscript's jump "scattering only → 1 at Tc" misses the channel that carries the missing
-weight. Figures `sum_rule_and_thresholds.png`, `W_N_limits.png` (W_WN_limits.png).
+includes pair creation, which is examined as an OUTLOOK only: The scattering channel alone returns R(hw,T_c) = 0.400 / 0.505 / 0.761 at T_c-; restoration of W/W_N -> 1 involves the pair-breaking channel, outside the scope of the quantitative result reported here. The coherence factors satisfy C_I + C_pair = 1 per quasiparticle pair, so together the channels carry the total transition weight; because they occupy different sheets (E'-E = hw vs E+E' = hw) with different thermal weights, their sum is not bounded by and does not equal any single normal-state reference. This work therefore reports the scattering channel only; the pair channel is examined in the outlook without a quantitative claim.
+Figures `sum_rule_and_thresholds.png` (outlook panel), `W_N_limits.png` (W_WN_limits.png).
 
 **Q5. Your validity window is 2Δ_eff > ħω, yet you say pair creation matters. Contradiction?**
 A. No: inside that window W_p ≡ 0 identically (its phase space opens only at
@@ -200,10 +198,10 @@ A. In the primary channel (η=+1 signed, scattering only): **no** — 1292 of 13
 curves are strictly monotone (the rest fail monotonicity only in numerically flat tails).
 The reason is structural: the naive peak candidate, the gapless ridge E_min = |D0−bμ|/κ → 0,
 coincides with the collapse of the SC dome (T_c → 0), so the ratio dies smoothly instead of
-peaking (`PARAM_SCAN_PEAKS.md` §1). In the **physical total** attenuation (scattering +
-pair creation, the correct answer where 2E_min < ħω) there ARE sharp, reproducible peaks of
-height 1.32–1.58 — above the normal value 1, a coherence overshoot — sitting in the wedge
-"dome open AND pair-open": U* ≈ 99–117 (grows with V_SO, shrinks with T), V_SO* ≈ 0.55 at
+peaking (`PARAM_SCAN_PEAKS.md` §1). Features of height 1.32–1.58 previously reported for (S_sc+S_pair)/S_N are WITHDRAWN
+(pair channel demoted to outlook, REPORT App. A2); the only surviving non-monotonicity is
+the scattering-only local maximum vs U at U* ≈ 19–21 for V_SO ≤ 0.2 (heights up to 0.999),
+from the competition of falling Δ⁰₀/T_c with the falling anchor R(ħω,(T/T_c)T_c(U)); at
 U=125, Δ_t* ≈ 4.0–5.1 (grows with U and T, shrinks with V_SO). They survive 13/25-point
 refinement (shifts ≤0.06 in Δ_t), doubled quadrature (≤2·10⁻⁵) and an independent k-space
 lattice evaluation including the new pair sum S_pair_bf (0.2–3.8 %, one 15 % outlier at the
@@ -253,9 +251,12 @@ stored as JSON/CSV in
 5. *"Why intraband pairing only?"* — HHM Sec. II: interband pairs carry finite centre-of-mass
    momentum at zero field (FFLO-like); time-reversed intraband pairing is the Anderson
    prescription. The Rashba gauge phase s e^{−iθ_k} cancels in all rates.
-6. *"Prove the sum rule analytically."* — at fixed (E,E′) shell, Σ over channels of
-   [C + (1−C)] = 1 per state pair; combined with the Δ→0 identity of the measures this gives
-   (W+W_p)/W_N = 1; numerically 1e-4 (T1, figure sum_rule_and_thresholds.png).
+6. *"Prove the sum rule analytically."* — At fixed (E,E′) shell, C + (1−C) = 1 per state
+   pair, so the two channels carry the total transition weight; but they live on different
+   sheets (E′−E=ħω vs E+E′=ħω) with different thermal weights, so no identity with a single
+   normal-state reference follows — the previously printed W_N^QP "identity" is withdrawn
+   (measured 0.545/3.63/0.848, never 1). What survives: at Δ→0 the measures coincide and
+   (S_sc+S_pair)/S_N = 100.0000 % (T1); the quantitative result is scattering-only.
 7. *"Why μ_N ≠ μ_SC, and which enters where?"* — particle number is fixed; the gap shifts the
    density of occupied states, so the chemical potentials differ by O(Δ²). W (SC states) uses
    μ_SC; W_N (normal states at same filling) uses μ_N. Consistency checked via the
