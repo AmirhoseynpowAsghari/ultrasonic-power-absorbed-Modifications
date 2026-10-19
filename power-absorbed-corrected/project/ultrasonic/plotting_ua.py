@@ -181,7 +181,7 @@ def fig_sum_rule_thresholds():
     ax[1].semilogy(f, np.abs(tot - 1.0) + 1e-12, color="k", lw=1.4)
     ax[1].set_xlabel("T / Tc")
     ax[1].set_ylabel("$|(W+W_p)/W_N - 1|$")
-    ax[1].set_title("sum rule holds to $10^{-4}$ everywhere above threshold")
+    ax[1].set_title("spectral weight per (E,E') shell is conserved; the RATIO to the\nband-reference normal state deviates from 1 above threshold (REPORT App. A)")
     fig.suptitle("Pair creation is identically zero inside the paper's window $2\\Delta_{eff}>\\hbar\\omega$;"
                  " above the true threshold it restores W/W_N = 1")
     fig.tight_layout(rect=[0, 0, 1, 0.90])

@@ -36,7 +36,10 @@ def temp_sweep(sc, fracs=FRACS, variants=("a_signed", "b_abs", "c_paper", "d_std
     """corrected W/W_N(T/Tc) for one SC state; optionally the pair-creation channel too."""
     from absorption import S_paircreation
     dos = dos_for(sc.VSO)
-    out = dict(V_SO=sc.VSO, Tc=sc.Tc, Deff_0=sc.Deff_0, fracs=[], ratios={}, Emin=[])
+    from physics_ua import phi_gap
+    out = dict(V_SO=sc.VSO, Tc=sc.Tc, Deff_0=sc.Deff_0, D0_0=sc.D0_0, DS_0=sc.DS_0,
+               hbar_omega=OMEGA, n_target=sc.n_tgt, fracs=[], ratios={}, Emin=[],
+               two_Emin=[], Deff=[])
     for v in variants:
         out["ratios"][v] = []
     out["ratios"]["pair"] = []
@@ -52,6 +55,11 @@ def temp_sweep(sc, fracs=FRACS, variants=("a_signed", "b_abs", "c_paper", "d_std
         else:
             out["ratios"]["pair"].append(None)
         out["Emin"].append(r["Emin"])
+        out["two_Emin"].append(2.0 * r["Emin"])
+        out["Deff"].append(phi_gap(st["T"], sc.Tc) * sc.Deff_0)
+        out["ratios"].setdefault("total", []).append(
+            (r["a_signed_ratio"] + (Sp / r["S_N"] if with_pair else 0.0)) if with_pair
+            else r["a_signed_ratio"])
     return out
 
 

@@ -149,3 +149,19 @@ channel" therefore holds for the originally scanned range U ≥ 50 and for the V
 directions; the low-U maximum is an additional, now documented, feature of the U direction.
 Flagged mean-field roots in these scans: U=55 at V_SO=0.4 and 0.6 (Δ⁰ ≪ Δ), U=150 at
 V_SO=0 (dome edge, T_c=0.011 t).
+
+
+## 8. Pair-channel decision (referee Part 2) — option (a), with the corrected reference
+
+The pair-creation channel IS part of the ultrasonic W: a phonon of energy ħω > 2E_min can
+decay into two quasiparticles, and that decay absorbs sound energy (Sardwal et al.,
+arXiv:2608.19079, Eqs. A6–A9, same η=+1 weight 1−f_m−f_n).  Therefore totals above 1 are not
+a bookkeeping error; they are the coherence-enhanced pair-breaking (C_pair = 1 at the gap
+edge, BCS singularities) measured against a normal-state reference that imposes BAND-energy
+conservation while W imposes QUASIPARTICLE-energy conservation (Appendix A2 of the REPORT).
+With the matched reference W_N^QP the identity (W+W_p)/W_N^QP = 1 holds exactly and the
+"peaks" are deviations of the band reference, i.e. genuine finite-ω physics of the model at
+ħω = 0.7t (~10³× physical ultrasound, where 2E_min > ħω everywhere and W/W_N ≤ 1, Levy).
+Files changed accordingly: README headline + gallery, COVER_NOTE.md, REPORT App. A2,
+plotting_ua.py figure title (+ regenerated sum_rule_and_thresholds.png), this file §0/§2
+wording ("physical total" always qualified as finite-ω), PDF addendum pp.19–24.

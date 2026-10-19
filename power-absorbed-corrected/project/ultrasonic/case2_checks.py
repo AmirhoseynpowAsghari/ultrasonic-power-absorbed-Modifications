@@ -71,6 +71,9 @@ def kernel_identity():
 def hebel_slichter():
     print("=" * 96)
     print("T6b  Hebel-Slichter coherence peak (Case II) vs Levy monotone suppression (Case I)")
+    print("     QUALITATIVE kernel demonstration, NOT sigma_1/sigma_N: the clean-limit ratio")
+    print("     diverges as omega->0 (no relaxation); fixed omega=1e-4 is below the delta-smearing")
+    print("     scale, so heights are regularisation-dependent.  See REFEREE_RESPONSE.md T6.")
     print("=" * 96)
     dos = FlatDOS(Wc=L.LAM_CUT)
     fr = np.linspace(0.30, 0.995, 26)

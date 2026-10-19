@@ -15,8 +15,8 @@ over all parameter sets of the paper.
 |---|---|
 | Physics | η = +1 (ultrasound, Case I), scattering channel with signed coherence factor C_I = ½[1+(ξξ′−Δ̄Δ̄′)/(EE′)], energy conservation E′ = E+ħω on quasiparticle energies, explicit branch (σ) sums |
 | Master set | U = 95t, Δ_t = 4.5t, n = 1.885, ħω = 0.7t, V_SO = 0 / 0.4082 / 0.8 |
-| Headline result | W/W_N < 1 for all 0 < T < Tc; limits 0.4000 / 0.5054 / 0.7611; sum rule (W+W_p)/W_N = 1 to 1e-4 above the true threshold 2E_min = ħω |
-| Defense package | `project/DEFENSE_referee_QA.md`: benchmarks B1-B6 vs accepted literature, 18 referee Q&A, 12 oral-exam Q&A, honest limitations |
+| Headline result | W/W_N < 1 for all 0 < T < Tc; limits 0.4000 / 0.5054 / 0.7611; spectral-weight identity (W+W_p)/W_N^QP = 1 exactly with the matched quasiparticle reference; against the band-reference normal state the total EXCEEDS 1 above the true threshold 2E_min = ħω (finite-ω pair-breaking enhancement; REPORT App. A/A2) |
+| Defense package | `project/DEFENSE_referee_QA.md`: benchmarks B1-B6 vs accepted literature, 22 referee Q&A (Q1–Q18d), 12 oral-exam Q&A, honest limitations |
 | Deliverables | `project/paper_correction/results/arXiv_2607.02812_corrected.pdf` (English, original text verbatim + replaced figures + addendum), `.../corrections_fa.pdf` (Farsi, B Nazanin, typeset equations) |
 
 ## Structure
@@ -25,7 +25,7 @@ over all parameter sets of the paper.
 .
 ├── README.md                          ← this file
 ├── LICENSE
-├── SOCfigures/                        ← curated physics-figure collection (31 PNGs + INDEX.md):
+├── SOCfigures/                        ← curated physics-figure collection (36 PNGs + INDEX.md):
 │                                        SOC effect, branch/coherence structure, benchmarks,
 │                                        peaks; reading order in SOCfigures/INDEX.md
 └── project/
@@ -69,6 +69,9 @@ over all parameter sets of the paper.
 
 ## Quick start
 
+`pip install -r requirements.txt` (numpy>=2 required), then `make test` (validation suite),
+`make master` + `make figures` (stage-2 + figures, all relative paths).
+
 ```bash
 cd project/sc_params   && python main_tc.py all       # stage 1: groups + master scan + U scans
 cd ../ultrasonic       && python main_ua.py all       # stage 2: T sweeps, group sweeps, V_SO scans
@@ -93,7 +96,7 @@ cd ../paper_correction && python build_corrected_pdf.py && python build_fa_pdf.p
 | `ultrasonic/figures/soc_effect_scattering.png`, `soc_mechanism.png` | **new** — spin-orbit effect in the scattering channel: ×1.7–1.9 enhancement at fixed T/T_c, ×39 suppression at fixed T, sign change at T/T_c≈0.22; mechanism decomposition (DOS splitting, T_c & Δ⁰/T_c, branch weights) — note `project/SOC_EFFECT_SCATTERING.md` |
 | `ultrasonic/figures/levy1963_swave_check.png` | **new** — s-wave reduction (Δˢ=0, V_SO=0, flat DOS, μ=0): ω→0 limit reproduces Levy 1963 Eq. (8), 2f(ε₀(T)), to 3e-6 |
 | `ultrasonic/figures/pair_creation_channel.png` | **new** — the pair-creation channel: integrand on the shell E+E'=ħω per branch pair, and W_p/W_N opening exactly at 2E_min = ħω |
-| `ultrasonic/figures/sum_rule_and_thresholds.png` | **new** — channels, the two thresholds (2Δ_eff vs 2E_min), sum rule to 1e-4 |
+| `ultrasonic/figures/sum_rule_and_thresholds.png` | **new** — channels, the two thresholds (2Δ_eff vs 2E_min), spectral-weight identity vs band-reference total above threshold |
 | `ultrasonic/figures/lattice_crosscheck.png` | **new** — energy-space pipeline vs brute-force lattice sum |
 | `ultrasonic/figures/branch_decomposition.png` | (σ,σ′) decomposition of the scattering sum |
 | `ultrasonic/figures/W_WN_limits.png` | Δ→0 and ω→0 limits vs analytic forms |
@@ -106,10 +109,10 @@ cd ../paper_correction && python build_corrected_pdf.py && python build_fa_pdf.p
 
 | test | statement | result |
 |---|---|---|
-| T0 | ℓ-space midpoint rule vs adaptive quadrature | 2.1e-4 rel. |
+| T0 | ℓ-substitution vs E-integral with BOTH Jacobians (E/κℓ)(E′/κℓ′) | ≤3.9e-4 rel. (3.9/1.8/0.8e-4 at ħω=0.05/0.01/0.002) |
 | T1 | Δ→0 closed form R(ħω,T); sum rule at Δ=0 | 3.1e-6; 100.0000 % |
 | T2 | ω→0 plateau = 2f(Δ) exactly = Levy 1963 Eq. (8) (s-wave reduction) | 2e-6 |
-| T3 | brute-force lattice sum, σ = sign(ε−ε*) | 0.4–1.6 % (0.5 ≤ T/Tc ≤ 0.999) |
+| T3 | brute-force lattice sum, σ = sign(ε−ε*), per variant | (a) 1.0–1.3 %; (b) ≤0.7 %; (c) ≤0.7 %; (d) 1.5–45 % (variant (d) not used for results) |
 | T4 | 0 ≤ C_I ≤ 1 pointwise | ok |
 | T5 | s-wave reduction vs Levy 1963: W/W_N(ω→0) = 2f(ε₀(T)) | 3e-6 |
 | T6 | Case-II vertex: branch-summed kernels = Mattis-Bardeen 1958; Hebel-Slichter peak; 2Δ threshold | 8.7e-16 |

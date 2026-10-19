@@ -90,8 +90,9 @@ class SCState:
 
 
 if __name__ == "__main__":
+    from kgrid_ua import band_edge
     for v in (0.0, 0.4082, 0.8):
-        p = sc_params_at(v)
+        p = sc_loader.sc_params_at(v)
         print(f"V_SO={p['VSO']:.4f}  Tc={p['Tc']:.4f}  D0(0)={p['D0_0']:.4f}  "
               f"DS(0)={p['DS_0']:.4f}  Deff(0)={p['Deff_0']:.4f}  band edge={band_edge(v):.4f}")
     d = NormalDOS(0.4082, Nk=400)

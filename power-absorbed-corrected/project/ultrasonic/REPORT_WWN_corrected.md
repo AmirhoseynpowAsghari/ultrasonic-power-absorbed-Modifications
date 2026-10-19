@@ -72,7 +72,7 @@ variables against a `4·10⁶`-point integral in E with the explicit Jacobian: a
 ```
 
 For (a): `|ξξ′ − Δ̄Δ̄′| ≤ √(ξ²+Δ̄²)√(ξ′²+Δ̄′²) = E E′` (Cauchy–Schwarz), so **0 ≤ C_a ≤ 1 identically**,
-hence `W/W_N ≤ 1` is guaranteed for (a) whatever the data. (b) and (c) break this bound (§4, T4).
+hence `0 ≤ C_a ≤ 1` for (a) pointwise.  This bounds the COHERENCE FACTOR only; it does NOT bound the ratio W/W_N, whose normal-state reference carries a different energy-conservation constraint (band energies) than W (quasiparticle energies): the repo's own total (S_sc+S_pair)/S_N = 1.51 above threshold is the counterexample (App. A2). (b) and (c) break even the pointwise-bound philosophy at Δ=0, where they return exactly 2R > 1 (§4, T4).
 
 ### 1.4 How the normal state is recovered — the crux of your question 7
 
@@ -331,3 +331,41 @@ Consequences, all visible in `results.csv`:
    in the domain), or you ask about the limit (then the pair channel is part of the answer and
    W/W_N → 1). The saturation values 0.40 / 0.51 / 0.76 quoted in §2–§3 are the *scattering-only*
    extrapolation to Δ→0 and are reported precisely to make this structure explicit.
+
+
+## Appendix A2. Corrected sum rule; what is actually conserved (referee response)
+
+The identity C_I + (1−C_I) = 1 holds per (E,E′) shell, so with a normal-state reference
+built in the SAME quasiparticle measure and the SAME constraint E′−E = ħω,
+
+    W_N^QP = ∫∫ dE dE′ (E/ℓ)(E′/ℓ′) N(ε_E) N(ε_E′) δ(E′−E−ħω) [f(E)−f(E′)],
+    (W + W_p)/W_N^QP = 1   EXACTLY, for all Δ, ħω, T, V_SO.
+
+The committed/printed claim used instead the BAND reference W_N = ∫N(ε)N(ε+ħω)(f−f′)dε with
+μ_N; because E′−E=ħω does not map to ε′−ε=ħω at Δ≠0, (W+W_p)/W_N(band) ≠ 1: it exceeds 1
+above the true threshold 2E_min=ħω (measured maxima 1.349/1.405/1.514 at V_SO=0/0.4082/0.8;
+stable to ~1e-9 under nell refinement, so not a quadrature artefact) and returns to
+1.004–1.006 as Δ→0, where the two references coincide (T1).  What is conserved is the
+per-shell spectral weight, not the ratio against the band reference.  Consequences applied:
+README headline, COVER_NOTE, figure title of sum_rule_and_thresholds.png, PDF addendum
+pp.19–24 and PARAM_SCAN_PEAKS.md now state the corrected version; the >1 totals and the
+1.3–1.6 peaks are reported as finite-ω pair-breaking enhancement (ħω=0.7t is ~10³ times
+physical ultrasound frequencies, where 2E_min>ħω always and the ratio is ≤1, Levy).
+
+## Appendix A3. Paper convention ↔ case ↔ correct factor (referee Part 4.1)
+
+| object | arXiv:2607.02812 v1 p.10 | case | correct for ultrasound (η=+1) |
+|---|---|---|---|
+| printed coherence factor | ½[1+(ξξ′−ΔΔ′)/(EE′)] | Case I signed | YES — this is C_I used here |
+| printed W integrand | +ηΔΔ′/EE′ with η=+1 | = ½[1+(ξξ′+ΔΔ′)/(EE′)] = (uu′+vv′)² | NO — Case II (EM/NMR) |
+| repo implementation | coherence() a_signed | Case I signed | YES (erratum E1, now tabulated) |
+
+## Appendix A4. Erratum E8 (gap shape regime) and E9 (U=−75 outputs)
+
+E8: stage-2 replaces the paper's Δ(T)=Δ₀√(1−T/Tc) by the fitted φ(T)=(1−(T/Tc)^p)^q with the
+MASTER exponents p=3.434, q=0.553 for ALL V_SO, while sc_params/results/gap_vs_T_fit.json
+gives p=3.674, q=0.556 at V_SO=0 (r²=0.999).  This is a deliberate rigid-shape choice (one
+universal shape keeps stage-2 comparable across V_SO); the per-V_SO refit changes W/W_N by 1.3–3.4 % (V_SO=0: 2.2/1.3 %; 0.4082: 2.5/1.4 %;
+V_SO=0.8: 3.4/2.1 % at T/Tc=0.5/0.9; measured in REFEREE_RESPONSE.md).  It was not listed in E1–E7: it is now.
+E9: the U=−75t root (Tc≈12.7–13.2t, Δ⁰≈17.8t, μ≈35t outside the band) is unphysical; its
+figures are moved to project/ultrasonic/figures/non_citable/ and removed from SOCfigures.

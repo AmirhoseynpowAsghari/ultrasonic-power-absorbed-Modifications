@@ -18,7 +18,10 @@ B_COUP = 1.0               # coupling prefactor B (cancels in W/W_N)
 N_TARGET = 1.8850          # filling of the master parameter set
 ETA    = +1.0              # case I (ultrasound): coherence factor u u' - eta v v'
 
-GAP_FIT_P = 3.434          # repository fit of the gap shape phi(T) = (1-(T/Tc)^p)^q
+GAP_FIT_P = 3.434          # MASTER rigid gap shape phi(T) = (1-(T/Tc)^p)^q for ALL V_SO.
+# Deliberate model choice (REPORT App. A4 / erratum E8): sc_params/results/gap_vs_T_fit.json
+# gives per-V_SO fits (p,q)=(3.674,0.556) at V_SO=0; using per-V_SO refits changes W/W_N
+# by 1.3-3.4 % at T/Tc=0.5/0.9 (quantified in REFEREE_RESPONSE.md).
 GAP_FIT_Q = 0.553
 
 Nk_DOS   = 1400            # k-grid of the normal DOS histogram

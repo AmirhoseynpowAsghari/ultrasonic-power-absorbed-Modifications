@@ -13,7 +13,7 @@ scattering formalism shape the ultrasonic attenuation ratio W/W_N of the HHM mod
 | `01_SOC_effect_scattering_channel.png` | the SOC effect **inside the scattering channel**: W/W_N vs T/T_c fans out with V_SO; vs V_SO at fixed T/T_c (×1.7–1.9); relative enhancement with its sign change at T/T_c≈0.22; fixed-T ensemble (×39 suppression) | `ultrasonic/make_soc_figures.py` |
 | `02_SOC_mechanism_routes.png` | the four internal routes: van-Hove splitting of N(ε); T_c up ×2.27 & Δ⁰₀/T_c down ×0.55; (σ,σ′) branch-weight redistribution; E_min and μ moving | `ultrasonic/make_soc_figures.py` |
 | `03_SOC_scan_master.png` | paper-regenerated V_SO scan of W/W_N (master set) at fixed T/T_c | `ultrasonic/plotting_ua.py` |
-| `04..06_SOC_scan_U*.png` | the same scan at U = 95t, 125t and −75t (the last = unphysical strong-coupling root, errata E7 — kept as a cautionary panel) | `ultrasonic/plotting_ua.py` |
+| `04,05_SOC_scan_U*.png` | the same scan at U = 95t and 125t. (The U=−75t panel was REMOVED from this collection as non-citable, errata E9; it lives in `ultrasonic/figures/non_citable/`.) | `ultrasonic/plotting_ua.py` |
 | `07_SOC_groupD_VSO_scan.png` | Group-D composite of the paper (V_SO scan with auxiliary panels) | `ultrasonic/plotting_ua.py` |
 | `08_SOC_Tc_vs_VSO_stage1.png` | stage-1: T_c(V_SO) — SOC strengthens pairing (0.286→0.649 t) | `sc_params/main_tc.py` |
 | `09_SOC_branch_vs_helicity.png` | σ (branch index of E-space) vs s (helicity of k-space): why the two labelings differ once V_SO ≠ 0, with the (σ,σ′) weights | `ultrasonic/plotting_ua.py` |

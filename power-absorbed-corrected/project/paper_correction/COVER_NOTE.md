@@ -17,8 +17,11 @@ derivation and validation), `wwn_eta1/results.{json,csv}` (master-set numbers), 
    (e.g. 0.402 / 0.509 / 0.762 at V_SO = 0 / 0.4082 / 0.8 for the master set U=95t, Δ_t=4.5t, n=1.885).
 3. **The limit at Tc (E3).** W/W_N → 1 at Tc⁻ only if the pair-breaking channel
    (E+E′ = ħω, occupation 1−f−f′, coherence factor 1−C_I) is included; the scattering channel alone
-   saturates at the band-structure value R(ħω,Tc). With both channels the sum rule
-   (W+W_p)/W_N = 1 holds exactly.
+   saturates at the band-structure value R(ħω,Tc). With both channels the spectral-weight
+   identity (W+W_p)/W_N^QP = 1 holds exactly against the matched quasiparticle reference;
+   against the band-reference normal state the total exceeds 1 above the true threshold
+   2E_min = ħω (finite-ω pair-breaking enhancement; REPORT App. A2) — the earlier
+   (W+W_p)/W_N^QP = 1 holds exactly.
 4. **The validity cut (E4).** 2Δ_eff > ħω is not the pair-breaking threshold; the true threshold is
    2E_min = ħω with E_min = |Δ⁰ − bμ|/√(1+b²). Inside 2Δ_eff > ħω the pair-breaking channel is
    identically zero, so the scattering-only result is complete in the window used.

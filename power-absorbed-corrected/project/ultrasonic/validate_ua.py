@@ -68,7 +68,8 @@ def T0_quadrature():
         lp = np.sqrt(np.maximum(Ep ** 2 - P["Emin"] ** 2, 0.0))
         C = coherence(E, l, np.full_like(E, Delta), Ep, lp, np.full_like(E, Delta), "a_signed")
         th = fermi_qp(E, T) - fermi_qp(Ep, T)
-        jac = np.where(l > 0, E / np.maximum(l, 1e-300), 0.0)
+        jac = (np.where(l > 0, E / np.maximum(l, 1e-300), 0.0) *
+               np.where(lp > 0, Ep / np.maximum(lp, 1e-300), 0.0))
         J = np.sum(jac * C * th * (Ep <= hi + 1e-12)) * dE
         ref = p[(1, 1)] / dos.N(0.0) ** 2
         worst = max(worst, abs(J - ref) / ref)
@@ -157,21 +158,30 @@ def T3_lattice(VSO=0.4082, fracs=(0.5, 0.7, 0.9, 0.99, 0.999), Nk=320, nbin=3000
 
 def T4_bound():
     print("=" * 92)
-    print("T4  Cauchy-Schwarz:  |xi xi' - Dbar Dbar'| <= sqrt(xi^2+Dbar^2) sqrt(xi'^2+Dbar'^2) = E E'")
-    print("    => 0 <= C_a <= 1 for the SIGNED factor, so W/W_N <= 1 necessarily.")
-    print("    Variants (b),(c) break the bound.")
+    print("T4  (i) 0<=C_a<=1 pointwise on a STRUCTURED grid (gap edge, mixed xi signs);")
+    print("    (ii) ratio-level bound at Delta=0: (a),(d) = R <= 1, (b),(c) = 2R (can exceed 1).")
+    print("    NOTE: random sampling can never show C>1 because |xi xi'| <= EE' identically;")
+    print("    the bound that physics breaks is the RATIO bound, violated by (b),(c) at Delta=0.")
     print("=" * 92)
-    rng = np.random.default_rng(0)
-    xi = rng.uniform(-3, 3, 200000)
-    xip = rng.uniform(-3, 3, 200000)
-    D = rng.uniform(-2, 2, 200000)
-    Dp = rng.uniform(-2, 2, 200000)
-    E = np.hypot(xi, D)
-    Ep = np.hypot(xip, Dp)
-    for v, lab in VARIANTS:
-        C = coherence(E, xi, D, Ep, xip, Dp, v)
-        print(f"   {lab:<18} C in [{C.min():+.4f}, {C.max():+.4f}]   "
-              f"violates C<=1 for {100*np.mean(C>1+1e-12):.1f}% of random states")
+    D = 0.35
+    E = np.concatenate([D + np.logspace(-4, 0.7, 800), np.linspace(D, 6, 800)])
+    worst = 0.0
+    for sa in (+1, -1):
+        for sb in (+1, -1):
+            xi = sa * np.sqrt(np.maximum(E ** 2 - D ** 2, 0.0))
+            xip = sb * np.sqrt(np.maximum((E + 0.2) ** 2 - D ** 2, 0.0))
+            C = coherence(E, xi, np.full_like(E, D), E + 0.2, xip, np.full_like(E + 0.2, D),
+                          "a_signed")
+            worst = max(worst, float(max(np.max(C) - 1.0, -np.min(C))))
+    print(f"   (i) signed C on structured grid: bound residual {worst:.2e}  ->  "
+          f"{'ok' if worst < 1e-12 else 'VIOLATION'}")
+    dos = FlatDOS(Wc=12.0, nb=12000)
+    for v in ("a_signed", "b_abs", "c_paper", "d_std"):
+        S, _ = S_scattering(dos, 1.0, 0.2, 0.0, 0.0, 0.0, v, nell=40000)
+        SN = S_normal(dos, 1.0, 0.2, 0.0)
+        print(f"   (ii) Delta=0, hw=0.2, T=1: {v:9s} W/W_N = {S/SN:.6f}"
+              + ("   <= 1 ok" if S / SN <= 1 + 1e-9 else "   > 1  (bound broken by this variant)"))
+    return worst
 
 
 if __name__ == "__main__":
@@ -186,6 +196,9 @@ if __name__ == "__main__":
     T4_bound()
     print()
     print("=" * 92)
-    print(f"SUMMARY  T0 {t0:.1e}   T1 {t1:.1e}   T2 {t2:.1e}   "
-          f"T3 max {max(v[2] for v in t3.values()):.1e}")
+    byv = {}
+    for k, v in t3.items():
+        byv.setdefault(k[1] if isinstance(k, tuple) else k, []).append(v[2])
+    rng = "  ".join(f"{kk}:{min(vv):.1e}-{max(vv):.1e}" for kk, vv in sorted(byv.items()))
+    print(f"SUMMARY  T0 {t0:.1e}   T1 {t1:.1e}   T2 {t2:.1e}   T3 per variant {rng}")
     print("=" * 92)
